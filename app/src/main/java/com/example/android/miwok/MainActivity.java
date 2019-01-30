@@ -20,6 +20,27 @@ public class MainActivity extends AppCompatActivity {
                 openNumbersList(view);
             }
         });
+        TextView colors = (TextView)findViewById(R.id.colors);
+        colors.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                openColorsList(view);
+            }
+        });
+        TextView familyMembers = (TextView)findViewById(R.id.family);
+        familyMembers.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                openFamilyMembersList(view);
+            }
+        });
+        TextView phrases = (TextView)findViewById(R.id.phrases);
+        phrases.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                openPhrasesList(view);
+            }
+        });
     }
 
     /**
