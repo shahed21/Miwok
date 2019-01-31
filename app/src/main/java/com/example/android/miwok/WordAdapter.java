@@ -1,11 +1,13 @@
 package com.example.android.miwok;
 
 import android.app.Activity;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -16,15 +18,17 @@ import java.util.ArrayList;
  * This class extends ArrayAdapter to override the getView method to accept a listItem View
  */
 public class WordAdapter extends ArrayAdapter {
+    private int mColorResourceId;
     /**
      * This is a constructor that takes the ArrayList of Words to form an ArrayAdapter with a
      * listItem View
      * @param context
      * @param words ArrayList of Words
      */
-    public WordAdapter(Activity context, ArrayList<Word> words) {
+    public WordAdapter(Activity context, ArrayList<Word> words, int colorResourceId) {
         // resource is zero, because second argument is not used when TextView is not used
         super(context, 0, words);
+        this.mColorResourceId = colorResourceId;
     }
 
     /**
@@ -48,6 +52,9 @@ public class WordAdapter extends ArrayAdapter {
         TextView defaultTextView = (TextView) listItemView.findViewById(R.id.default_text_view);
         TextView miwokTextView = (TextView) listItemView.findViewById(R.id.miwok_text_view);
         ImageView imageView = (ImageView) listItemView.findViewById(R.id.word_icon);
+        LinearLayout textContainerLayout = (LinearLayout) listItemView.findViewById(R.id.text_container);
+
+        textContainerLayout.setBackgroundColor(ContextCompat.getColor(getContext(), mColorResourceId));
 
         defaultTextView.setText(currentWord.getDefaultTranslation());
         miwokTextView.setText(currentWord.getMiwokTranslation());
