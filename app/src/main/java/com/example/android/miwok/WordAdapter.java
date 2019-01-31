@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -64,6 +65,7 @@ public class WordAdapter extends ArrayAdapter {
         else {
             imageView.setVisibility(View.GONE);
         }
+
         return listItemView;
     }
 }
