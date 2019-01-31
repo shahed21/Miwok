@@ -1,5 +1,7 @@
 package com.example.android.miwok;
 
+import android.graphics.drawable.Drawable;
+
 /**
  * {@link Word} represents a vocabulary word that the user wants to learn.
  * It contains a default translation and a Miwok translation for that word.
@@ -8,11 +10,13 @@ package com.example.android.miwok;
 public class Word {
     private final static int NO_IMAGE_ADDED = -1;
 
-    /** Miwok Translation of word **/
+    // Miwok Translation of word
     private String mMiwokTranslation;
-    /** Default Translation of word **/
+    // Default Translation of word
     private String mDefaultTranslation;
-    /** Drawable resource ID **/
+    // Raw Resource ID for media
+    private int mAudioResourceID;
+    // Drawable resource ID
     private int mImageResourceID = NO_IMAGE_ADDED;
 
 
@@ -20,20 +24,23 @@ public class Word {
      * Creates a new word with no image
      * @param defaultTranslation is the word in the language user is already familiar with
      * @param miwokTranslation is the word in Miwok
+     * @param audioResourceID raw Resource ID for media
      */
-    public Word(String defaultTranslation, String miwokTranslation) {
-        this(defaultTranslation, miwokTranslation, NO_IMAGE_ADDED);
+    public Word(String defaultTranslation, String miwokTranslation, int audioResourceID) {
+        this(defaultTranslation, miwokTranslation, audioResourceID, NO_IMAGE_ADDED);
     }
 
     /**
      * Creates a new word with a Image
      * @param defaultTranslation is the word in the language user is already familiar with
      * @param miwokTranslation is the word in Miwok
+     * @param audioResourceID raw Resource ID for media
      * @param imageResourceID is the drawable image resource id
      */
-    public Word(String defaultTranslation, String miwokTranslation, int imageResourceID) {
+    public Word(String defaultTranslation, String miwokTranslation, int audioResourceID, int imageResourceID) {
         this.mDefaultTranslation = defaultTranslation;
         this.mMiwokTranslation = miwokTranslation;
+        this.mAudioResourceID = audioResourceID;
         this.mImageResourceID = imageResourceID;
     }
 
@@ -61,6 +68,18 @@ public class Word {
         return mImageResourceID;
     }
 
+    /**
+     * This method returns the raw audio resource id
+     * @return audio resource id
+     */
+    public int getmAudioResourceID() {
+        return mAudioResourceID;
+    }
+
+    /**
+     * This method returns a boolean for whether a image is added to the Word
+     * @return whether the object has an image attached
+     */
     public boolean hasImage() {
         return (mImageResourceID!=NO_IMAGE_ADDED);
     }
