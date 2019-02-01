@@ -26,9 +26,6 @@ public class WordCommonActivity extends AppCompatActivity {
         @Override
         public void onCompletion(MediaPlayer mp) {
             releaseMediaPlayer();
-            if (mAfChangeListener!=null) {
-                mAudioManager.abandonAudioFocus(mAfChangeListener);
-            }
         }
     };
 
@@ -50,6 +47,7 @@ public class WordCommonActivity extends AppCompatActivity {
                     // i.e. for a phone call
                     if (mMediaPlayer!=null) {
                         mMediaPlayer.pause();
+                        mMediaPlayer.seekTo(0);
                     }
                 } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
                     // Stop playback, because you lost the Audio Focus.
@@ -59,11 +57,8 @@ public class WordCommonActivity extends AppCompatActivity {
                     // You’re done.
                     if (mMediaPlayer!=null) {
                         mMediaPlayer.stop();
-                        releaseMediaPlayer();
                     }
-                    if (mAfChangeListener!=null) {
-                        mAudioManager.abandonAudioFocus(mAfChangeListener);
-                    }
+                    releaseMediaPlayer();
                 } else if (focusChange ==
                         AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
                     // Lower the volume, because something else is also
@@ -73,6 +68,7 @@ public class WordCommonActivity extends AppCompatActivity {
                     // pause playback here instead. You do you.
                     if (mMediaPlayer!=null) {
                         mMediaPlayer.pause();
+                        mMediaPlayer.seekTo(0);
                     }
                 } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
                     // Resume playback, because you hold the Audio Focus
@@ -123,6 +119,10 @@ public class WordCommonActivity extends AppCompatActivity {
         if (mMediaPlayer!=null) {
             mMediaPlayer.release();
             mMediaPlayer=null;
+        }
+        if (mAfChangeListener!=null) {
+            /*TODO change deprecated code to latest code*/
+            mAudioManager.abandonAudioFocus(mAfChangeListener);
         }
     }
 
