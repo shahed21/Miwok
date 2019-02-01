@@ -20,11 +20,15 @@ public class NumbersActivity extends WordCommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
+
+        Log.v(LOG_TAG, "onCreate");
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
         createWordList();
         finishCreation(this, wordList,mColorResourceId);
     }
 
     private void createWordList() {
+        Log.v(LOG_TAG, "createWordList");
         wordList = new ArrayList<Word>();
         wordList.add(new Word("one", "lutti", R.raw.number_one, R.drawable.number_one));
         wordList.add(new Word("two", "otiiko", R.raw.number_two, R.drawable.number_two));

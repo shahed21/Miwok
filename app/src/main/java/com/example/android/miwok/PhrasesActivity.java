@@ -20,11 +20,15 @@ public class PhrasesActivity extends WordCommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
+
+        Log.v(LOG_TAG, "onCreate");
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
         createWordList();
         finishCreation(this, wordList,mColorResourceId);
     }
 
     private void createWordList() {
+        Log.v(LOG_TAG, "createWordList");
         wordList = new ArrayList<Word>();
         wordList.add(new Word("Where are you going?", "minto wuksus", R.raw.phrase_where_are_you_going));
         wordList.add(new Word("What is your name?", "tinnә oyaase'nә", R.raw.phrase_what_is_your_name));

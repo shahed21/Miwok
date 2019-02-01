@@ -20,11 +20,15 @@ public class ColorsActivity extends WordCommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
+
+        Log.v(LOG_TAG, "onCreate");
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
         createWordList();
         finishCreation(this, wordList,mColorResourceId);
     }
 
     private void createWordList() {
+        Log.v(LOG_TAG, "createWordList");
         wordList = new ArrayList<Word>();
         wordList.add(new Word("red", "weṭeṭṭi", R.raw.color_red, R.drawable.color_red));
         wordList.add(new Word("green", "chokokki", R.raw.color_green, R.drawable.color_green));

@@ -7,8 +7,10 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -22,19 +24,30 @@ public class WordCommonActivity extends AppCompatActivity {
     private AudioManager mAudioManager;
     private AudioManager.OnAudioFocusChangeListener mAfChangeListener;
 
-    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
-        @Override
-        public void onCompletion(MediaPlayer mp) {
-            releaseMediaPlayer();
-        }
-    };
-
     @Override
     protected void onStop() {
         super.onStop();
         Log.v(LOG_TAG, "onStop");
         releaseMediaPlayer();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            releaseMediaPlayer();
+        }
+    };
 
     protected void finishCreation(Activity activity, ArrayList<Word> wordList, int colorResourceId) {
         mAudioManager = (AudioManager) this.getSystemService(this.AUDIO_SERVICE);

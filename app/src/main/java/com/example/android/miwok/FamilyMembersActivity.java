@@ -20,11 +20,15 @@ public class FamilyMembersActivity extends WordCommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
+
+        Log.v(LOG_TAG, "onCreate");
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
         createWordList();
         finishCreation(this, wordList,mColorResourceId);
     }
 
     private void createWordList() {
+        Log.v(LOG_TAG, "createWordList");
         wordList = new ArrayList<Word>();
         wordList.add(new Word("father", "әpә", R.raw.family_father, R.drawable.family_father));
         wordList.add(new Word("mother", "әṭa", R.raw.family_mother, R.drawable.family_mother));
