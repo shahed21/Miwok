@@ -13,4 +13,8 @@
 
     <!-- Category name for the vocabulary words for family members [CHAR LIMIT=20] -->
     <string name="category_family">Family Members</string>
+
+    <!--Content Descriptions of Images in list_item.xml-->
+    <string name="content_description_word_image">Word Image</string>
+    <string name="content_description_audio_button">Press to play</string>
 </resources>
