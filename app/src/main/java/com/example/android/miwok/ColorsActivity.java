@@ -11,21 +11,21 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class ColorsActivity extends AppCompatActivity {
+public class ColorsActivity extends WordCommonActivity {
     final String LOG_TAG = ColorsActivity.class.getSimpleName();
-    private MediaPlayer mMediaPlayer;
-    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
-        @Override
-        public void onCompletion(MediaPlayer mp) {
-            releaseMediaPlayer();
-        }
-    };
+    final private int mColorResourceId = R.color.category_colors;
+    private ArrayList<Word> wordList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
-        ArrayList<Word> wordList = new ArrayList<Word>();
+        createWordList();
+        finishCreation(this, wordList,mColorResourceId);
+    }
+
+    private void createWordList() {
+        wordList = new ArrayList<Word>();
         wordList.add(new Word("red", "weṭeṭṭi", R.raw.color_red, R.drawable.color_red));
         wordList.add(new Word("green", "chokokki", R.raw.color_green, R.drawable.color_green));
         wordList.add(new Word("brown", "ṭakaakki", R.raw.color_brown, R.drawable.color_brown));
@@ -34,40 +34,5 @@ public class ColorsActivity extends AppCompatActivity {
         wordList.add(new Word("white", "kelelli", R.raw.color_white, R.drawable.color_white));
         wordList.add(new Word("dusty yellow", "ṭopiisә", R.raw.color_dusty_yellow, R.drawable.color_dusty_yellow));
         wordList.add(new Word("mustard yellow", "chiwiiṭә", R.raw.color_mustard_yellow, R.drawable.color_mustard_yellow));
-        WordAdapter adapter = new WordAdapter(this, wordList, R.color.category_colors);
-        ListView listView = (ListView) findViewById(R.id.list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                Word selectedWord = (Word) parent.getItemAtPosition(position);
-                Log.v(LOG_TAG, "Current word: " + selectedWord);
-                releaseMediaPlayer();
-                mMediaPlayer = MediaPlayer.create(parent.getContext(),selectedWord.getmAudioResourceID());
-                mMediaPlayer.start();
-                mMediaPlayer.setOnCompletionListener(mCompletionListener);
-                Toast.makeText(parent.getContext(), selectedWord.getDefaultTranslation(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.v(LOG_TAG, "onStop");
-        releaseMediaPlayer();
-    }
-
-    /**
-     * Clean up the media player by releasing its resources
-     */
-    private void releaseMediaPlayer() {
-        if (mMediaPlayer!=null) {
-            mMediaPlayer.release();
-            mMediaPlayer=null;
-        }
-    }
-
 }

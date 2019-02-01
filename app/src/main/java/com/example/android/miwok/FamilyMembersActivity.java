@@ -11,21 +11,21 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class FamilyMembersActivity extends AppCompatActivity {
+public class FamilyMembersActivity extends WordCommonActivity {
     final String LOG_TAG = FamilyMembersActivity.class.getSimpleName();
-    private MediaPlayer mMediaPlayer;
-    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
-        @Override
-        public void onCompletion(MediaPlayer mp) {
-            releaseMediaPlayer();
-        }
-    };
+    final private int mColorResourceId = R.color.category_family;
+    private ArrayList<Word> wordList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
-        ArrayList<Word> wordList = new ArrayList<Word>();
+        createWordList();
+        finishCreation(this, wordList,mColorResourceId);
+    }
+
+    private void createWordList() {
+        wordList = new ArrayList<Word>();
         wordList.add(new Word("father", "әpә", R.raw.family_father, R.drawable.family_father));
         wordList.add(new Word("mother", "әṭa", R.raw.family_mother, R.drawable.family_mother));
         wordList.add(new Word("son", "angsi", R.raw.family_son, R.drawable.family_son));
@@ -36,40 +36,5 @@ public class FamilyMembersActivity extends AppCompatActivity {
         wordList.add(new Word("younger sister", "kolliti", R.raw.family_younger_sister, R.drawable.family_younger_sister));
         wordList.add(new Word("grandmother", "ama", R.raw.family_grandmother, R.drawable.family_grandmother));
         wordList.add(new Word("grandfather", "paapa", R.raw.family_grandfather, R.drawable.family_grandfather));
-        WordAdapter adapter = new WordAdapter(this, wordList, R.color.category_family);
-        ListView listView = (ListView) findViewById(R.id.list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                Word selectedWord = (Word) parent.getItemAtPosition(position);
-                Log.v(LOG_TAG, "Current word: " + selectedWord);
-                releaseMediaPlayer();
-                mMediaPlayer = MediaPlayer.create(parent.getContext(),selectedWord.getmAudioResourceID());
-                mMediaPlayer.start();
-                mMediaPlayer.setOnCompletionListener(mCompletionListener);
-                Toast.makeText(parent.getContext(), selectedWord.getDefaultTranslation(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.v(LOG_TAG, "onStop");
-        releaseMediaPlayer();
-    }
-
-    /**
-     * Clean up the media player by releasing its resources
-     */
-    private void releaseMediaPlayer() {
-        if (mMediaPlayer!=null) {
-            mMediaPlayer.release();
-            mMediaPlayer=null;
-        }
-    }
-
 }
