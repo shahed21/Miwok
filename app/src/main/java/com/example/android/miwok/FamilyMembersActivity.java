@@ -22,7 +22,6 @@ public class FamilyMembersActivity extends WordCommonActivity {
         setContentView(R.layout.word_list);
 
         Log.v(LOG_TAG, "onCreate");
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
         createWordList();
         finishCreation(this, wordList,mColorResourceId);
     }

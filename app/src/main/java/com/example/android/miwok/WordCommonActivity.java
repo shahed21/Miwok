@@ -50,6 +50,8 @@ public class WordCommonActivity extends AppCompatActivity {
     };
 
     protected void finishCreation(Activity activity, ArrayList<Word> wordList, int colorResourceId) {
+        //Crashes when the following statement is uncommented
+        //activity.getActionBar().setDisplayHomeAsUpEnabled(true);
         mAudioManager = (AudioManager) this.getSystemService(this.AUDIO_SERVICE);
         mAfChangeListener = new AudioManager.OnAudioFocusChangeListener() {
             @Override
