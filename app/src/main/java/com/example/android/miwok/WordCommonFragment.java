@@ -1,16 +1,12 @@
 package com.example.android.miwok;
 
-import android.app.Activity;
 import android.media.AudioAttributes;
 import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,29 +14,29 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class WordCommonActivity extends AppCompatActivity {
-    final String LOG_TAG = WordCommonActivity.class.getSimpleName();
+public class WordCommonFragment extends Fragment {
+    final String LOG_TAG = WordCommonFragment.class.getSimpleName();
     private MediaPlayer mMediaPlayer;
     private AudioManager mAudioManager;
     private AudioManager.OnAudioFocusChangeListener mAfChangeListener;
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         Log.v(LOG_TAG, "onStop");
         releaseMediaPlayer();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            // Respond to the action bar's Up/Home button
+//            case android.R.id.home:
+//                NavUtils.navigateUpFromSameTask(this);
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
@@ -49,10 +45,17 @@ public class WordCommonActivity extends AppCompatActivity {
         }
     };
 
-    protected void finishCreation(Activity activity, ArrayList<Word> wordList, int colorResourceId) {
+    /**
+     * This finishes the creation of the Fragment
+     * @param fragment
+     * @param rootView
+     * @param wordList
+     * @param colorResourceId
+     */
+    protected void finishCreation(Fragment fragment, View rootView, ArrayList<Word> wordList, int colorResourceId) {
         //Crashes when the following statement is uncommented
         //activity.getActionBar().setDisplayHomeAsUpEnabled(true);
-        mAudioManager = (AudioManager) this.getSystemService(this.AUDIO_SERVICE);
+        mAudioManager = (AudioManager) fragment.getActivity().getSystemService(fragment.getActivity().AUDIO_SERVICE);
         mAfChangeListener = new AudioManager.OnAudioFocusChangeListener() {
             @Override
             public void onAudioFocusChange(int focusChange) {
@@ -98,8 +101,10 @@ public class WordCommonActivity extends AppCompatActivity {
                 }
             }
         };
-        WordAdapter adapter = new WordAdapter(activity, wordList, colorResourceId);
-        ListView listView = (ListView) findViewById(R.id.list);
+        WordAdapter adapter = new WordAdapter(fragment, wordList, colorResourceId);
+        Log.d(LOG_TAG, "adapter : "+adapter);
+        ListView listView = (ListView) rootView.findViewById(R.id.list);
+
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {

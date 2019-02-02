@@ -1,6 +1,6 @@
 package com.example.android.miwok;
 
-import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,15 +20,18 @@ import java.util.ArrayList;
  */
 public class WordAdapter extends ArrayAdapter {
     private int mColorResourceId;
+
     /**
      * This is a constructor that takes the ArrayList of Words to form an ArrayAdapter with a
      * listItem View
-     * @param context
+     *
+     * @param fragment
      * @param words ArrayList of Words
+     * @param colorResourceId
      */
-    public WordAdapter(Activity context, ArrayList<Word> words, int colorResourceId) {
+    public WordAdapter(Fragment fragment, ArrayList<Word> words, int colorResourceId) {
         // resource is zero, because second argument is not used when TextView is not used
-        super(context, 0, words);
+        super(fragment.getContext(), 0, words);
         this.mColorResourceId = colorResourceId;
     }
 

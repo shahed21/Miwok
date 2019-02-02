@@ -1,29 +1,25 @@
 package com.example.android.miwok;
 
-import android.media.MediaPlayer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-public class FamilyMembersActivity extends WordCommonActivity {
-    final String LOG_TAG = FamilyMembersActivity.class.getSimpleName();
+public class FamilyMembersFragment extends WordCommonFragment {
+    final String LOG_TAG = FamilyMembersFragment.class.getSimpleName();
     final private int mColorResourceId = R.color.category_family;
     private ArrayList<Word> wordList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.word_list);
-
-        Log.v(LOG_TAG, "onCreate");
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.word_list, container, false);
+        Log.v(LOG_TAG, "onCreateView");
         createWordList();
-        finishCreation(this, wordList,mColorResourceId);
+        finishCreation(this, rootView, wordList, mColorResourceId);
+        return rootView;
     }
 
     private void createWordList() {
